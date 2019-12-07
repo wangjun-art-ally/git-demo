@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script src="./template-web.js"></script>
+    <script type="text/html" id="tpl">
+          <h3>姓名：{{name}}</h3>
+            <p>年龄：{{age}}</p>
+            <dl>
+              <dt>爱看的书</dt>
+              {{each aihao}}
+              <dd>{{$value}}</dd>
+              {{/each}}
+            </dl>
+            <div>{{@str}}</div>
+            {{if isLogin}}
+            退出
+            {{else}}
+            登录
+            {{/if}}
+      </script>
+      
+    <script>
+        // 1. 把git命令复习
+        // 2. vsCode中练习如何使用git
+        // 3. 模板引擎复习
+
+        // function dateformat(str){
+        //     var date = new Date(str)
+        //     var y = date.getFullYear()
+        //     var m = date.getMonth()+1
+        //     var d = date.getDate()
+        //     return y + '年' + m + '月' + d + '日'
+        // } 
+        // template.defaults.imports.deteformat = dateformat 
+        var obj = {
+            name: '张三',
+            age: 20,
+            isLogin: false,//是否登录,如果登录值为true,否则为false 复习条件判断
+            aihao: ['三国演义', '西游记', '红楼梦', '水浒传'],//复习循环
+            str: '<h1>你好世界</h1>',//复习html转义 如果你要渲染的变量的值是一个html片段，渲染的时候就不会渲染成Html，而是会原样输入 防止xss(跨站脚本攻击)
+            time: 1575624278717
+        };
+        //把数据进行转换
+        // template('模板的id值',数据(必须是一个对象))
+        var html = template('tpl', obj)
+        document.querySelector('#container').innerHTML = html 
+    </script>
+</body>
+
+</html>
